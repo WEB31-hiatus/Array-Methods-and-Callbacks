@@ -33,11 +33,11 @@ console.log(getFinals(fifaData), 'finals data')
 
 /* Task 3: Impliment a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(cb, data){
+function getYears(cb){
 
     /* code here */
     const years = []
-    const finalsData = getFinals(data)
+    const finalsData = getFinals(cb)
 
     finalsData.forEach(function(item){
         return years.push(item.Year)
@@ -45,15 +45,15 @@ function getYears(cb, data){
     return years
 };
 
-console.log(getYears(getFinals, fifaData), 'years');
+console.log(getYears(getFinals(fifaData)), 'years');
 
 /* Task 5: Impliment a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(cb, data) {
+function getWinners(cb) {
 
     /* code here */
     const winners = []
-    const winnerData = getFinals(data)
+    const winnerData = getFinals(cb)
 
     winnerData.forEach(function(item){
         if (item['Home Team Goals'] > item['Away Team Goals']) {
@@ -65,7 +65,7 @@ function getWinners(cb, data) {
     return winners
 };
 
-console.log(getWinners(getFinals, fifaData), 'winners');
+console.log(getWinners(getFinals(fifaData)), 'winners');
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -74,59 +74,52 @@ Parameters:
  * callback function getYears
  */
 
-// function getWinnersByYear(cb1, cb2) {
-    
-//     const teams = []
-//     const year = getYears
-//     const country = getWinners
+function getWinnersByYear(winners, years) {
+    console.log(winners)
+    console.log(years)
 
-//     country.forEach(function(item){
-//         teams.push(item)
-//     })
+    return winners.map(function(item, index) {
+        return (`In ${years[index]}, ${item} won the world cup!`)
+    })
 
-//     year.forEach(function(item){
-//         teams.push(item)
-//     })
+};
 
-//     return winnerData
-// };
-
-// console.log(getWinnersByYear(getWinners, getYears), 'winners by year');
+console.log(getWinnersByYear(getWinners(fifaData), getYears(fifaData)));
 
 /* Task 7: Create a function called `getCountryWins` that takes the parameters `data` and `team initials` and returns the number of world cup wins that country has had. 
 
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(cb, data) {
+// function getCountryWins(cb, data) {
 
-    /* code here */
-    const teams = []
-    const titles = []
-    const cupData = getFinals(data)
+//     /* code here */
+//     const teams = []
+//     const titles = []
+//     const cupData = getFinals(data)
 
-    cupData.forEach(function(item) {
-        teams.push(item['Home Team Initials'])
-    })
+//     cupData.forEach(function(item) {
+//         teams.push(item['Home Team Initials'])
+//     })
 
-    cupData.forEach(function(item) {
-        teams.push(item['Away Team Initials'])
-    })
+//     cupData.forEach(function(item) {
+//         teams.push(item['Away Team Initials'])
+//     })
 
-    teams.forEach(function(item) {
-       titles.push(item.count())
-    })
+//     teams.forEach(function(item) {
+//        titles.push(item.count())
+//     })
 
-    // team.forEach(function(item) {
-    //     item.reduce(function(acc, item) {
-    //         return `${item}: ${acc}`
-    //     }, 0)
-    // })
+//     // team.forEach(function(item) {
+//     //     item.reduce(function(acc, item) {
+//     //         return `${item}: ${acc}`
+//     //     }, 0)
+//     // })
 
-    return titles
-};
+//     return titles
+// };
 
-console.log(getCountryWins(getFinals, fifaData));
+// console.log(getCountryWins(getFinals, fifaData));
 
 
 /* Task 8: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
